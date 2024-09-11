@@ -1,0 +1,94 @@
+integer particle_count = 0;
+
+particleON()
+{
+    vector color = <1.0, 1.0, 1.0>;  // white color
+    
+    llParticleSystem(
+    [
+        PSYS_SRC_PATTERN, 
+        PSYS_SRC_PATTERN_EXPLODE,
+        PSYS_SRC_BURST_RADIUS, 0.2,
+        PSYS_SRC_ANGLE_BEGIN, PI_BY_TWO - 0.1,
+        PSYS_SRC_ANGLE_END, PI_BY_TWO + 0.2,
+        PSYS_SRC_TARGET_KEY, llGetKey(),
+        PSYS_PART_START_COLOR, color,
+        PSYS_PART_END_COLOR, color,
+        PSYS_PART_START_ALPHA, 1,
+        PSYS_PART_END_ALPHA, 0,
+        PSYS_PART_START_GLOW, 0.2,
+        PSYS_PART_END_GLOW, 0.0,
+        PSYS_PART_BLEND_FUNC_SOURCE,
+        PSYS_PART_BF_SOURCE_ALPHA,
+        PSYS_PART_BLEND_FUNC_DEST,
+        PSYS_PART_BF_ONE_MINUS_SOURCE_ALPHA,
+        PSYS_PART_START_SCALE, <0.300000, 0.300000, 0.000000>,
+        PSYS_PART_END_SCALE, <0.300000, 0.300000, 0.000000>,
+        PSYS_SRC_TEXTURE, "17c4cecb-c61b-ac1f-374d-e06bd845a75b",
+        PSYS_SRC_MAX_AGE, 0,
+        PSYS_PART_MAX_AGE, 1.5,
+        PSYS_SRC_BURST_RATE, 0.36, // make particles appear more quickly
+        PSYS_SRC_BURST_PART_COUNT, 1, // one particle at a time
+        PSYS_SRC_ACCEL, <0.000000, 0.000000, 1.5>,
+        PSYS_SRC_OMEGA, <0.000000, 0.000000, 0.000000>,
+        PSYS_SRC_BURST_SPEED_MIN, 0.0,
+        PSYS_SRC_BURST_SPEED_MAX, 0.0,
+        PSYS_PART_FLAGS,
+            0 |
+            PSYS_PART_EMISSIVE_MASK |
+            PSYS_PART_INTERP_SCALE_MASK
+    ]);
+    
+    particle_count++;
+    llSetTimerEvent(0.02);
+}
+
+particleOFF()
+{
+    llParticleSystem([]);
+    particle_count = 0;
+    llSetTimerEvent(0);
+}
+
+default
+{
+    state_entry()
+    {
+    }
+    
+    on_rez(integer start_param)
+    {
+    llResetScript();
+    }
+
+    touch_start(integer total_number)
+    {
+        llTriggerSound( "5a7e54fc-0fd1-bfe3-f0f2-0ec80f836601", 1.0 );
+        particleON();
+        llSleep(0.2);
+        llPlaySound(llGetInventoryName(INVENTORY_SOUND,llFloor(llFrand(llGetInventoryNumber(INVENTORY_SOUND)))),1.0);
+        if (llGetOwner());
+        {
+        llSay(937, "headpat");
+        }
+        key idx = llDetectedKey(0);
+        string origName = llGetObjectName();
+        string avName;
+        avName = llGetDisplayName(idx);
+        llSetObjectName( " " );
+        llSay(0, avName + " pets the wobbledog's head.");
+        llSetObjectName( origName );
+        llSleep(1.0);
+    }
+        timer()
+        {
+        if (particle_count >= 5)
+    {
+        particleOFF();
+    }
+    else
+    {
+        particleON();
+    }
+        }
+}

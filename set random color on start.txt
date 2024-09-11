@@ -1,0 +1,18 @@
+default
+{
+    state_entry()
+    {
+        // Nothing to do here.
+    }
+
+    on_rez(integer start_param)
+    {
+        // Generate random RGB values.
+        float red = llFrand(1.0);
+        float green = llFrand(1.0);
+        float blue = llFrand(1.0);
+
+        // Set the color of the prim.
+        llSetColor(<red, green, blue>, ALL_SIDES);
+    }
+}

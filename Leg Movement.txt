@@ -1,0 +1,81 @@
+//code by jack apfelbaum (according to the file Creator)
+vector backleg1_position= <-0.31,0,0>;
+vector backleg0_position= <-0.31,0,0>;
+vector frontleg1_position= <0.31,0,0>;
+vector frontleg0_position = <0.31,0,0>;
+
+integer body;
+integer backleg1;
+integer backleg0;
+integer frontleg1;
+integer frontleg0;
+
+integer getLinkNum(string primName)
+{
+integer primCount = llGetNumberOfPrims();
+integer i;
+for (i=0; i<primCount+1;i++){  
+if (llGetLinkName(i)==primName) return i;
+} 
+return FALSE;
+}
+
+findlink() 
+{
+body = getLinkNum("body");
+backleg1 = getLinkNum("backleg1");
+backleg0 = getLinkNum("backleg0");
+frontleg1 = getLinkNum("frontleg1");
+frontleg0 = getLinkNum("frontleg0");
+}
+default
+{
+    changed(integer change)
+    {
+      if (change & CHANGED_LINK)
+      {  
+      llResetScript();
+      }
+    }
+    on_rez(integer start_param) 
+    {
+    llResetScript();
+    }
+    state_entry() 
+    { 
+    findlink();
+    llSetTimerEvent(.01);
+    llSetLinkPrimitiveParamsFast(frontleg0,[PRIM_POS_LOCAL,<-0.15556, -0.05450, -0.09888>+frontleg0_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+    llSetLinkPrimitiveParamsFast(frontleg1,[PRIM_POS_LOCAL,<-0.15558, 0.04279, -0.09888>+frontleg1_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+    llSetLinkPrimitiveParamsFast(backleg0,[PRIM_POS_LOCAL,<0.15369, -0.05450, -0.09888>+backleg0_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+    llSetLinkPrimitiveParamsFast(backleg1,[PRIM_POS_LOCAL,<0.15369, 0.04279, -0.09888>+backleg1_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+    }
+    timer()
+    {
+        list target =llGetLinkPrimitiveParams(body,[PRIM_DESC]);      
+        if("walk"== llList2String(target,0))    
+        {
+        llSleep(0.2);
+        llSetLinkPrimitiveParamsFast(frontleg0,[PRIM_POS_LOCAL,<-0.32607, -0.05450, 0.01501>+frontleg0_position,PRIM_ROT_LOCAL,<0.00000, -0.83147, 0.00000, 0.55557>]);
+        llSetLinkPrimitiveParamsFast(frontleg1,[PRIM_POS_LOCAL,<-0.02507, 0.04279, -0.04480>+frontleg1_position,PRIM_ROT_LOCAL,<0.00000, 0.92388, 0.00000, 0.38268>]);
+        llSetLinkPrimitiveParamsFast(backleg0,[PRIM_POS_LOCAL,<0.32421, -0.05450, 0.01501>+backleg0_position,PRIM_ROT_LOCAL,<0.00000, 0.83147, 0.00000, 0.55557>]);
+        llSetLinkPrimitiveParamsFast(backleg1,[PRIM_POS_LOCAL,<0.02319, 0.04279, -0.04480>+backleg1_position,PRIM_ROT_LOCAL,<-0.00000, -0.92388, -0.00000, 0.38268>]);
+        llSleep(0.2);
+        llSetLinkPrimitiveParamsFast(frontleg0,[PRIM_POS_LOCAL,<-0.15556, -0.05450, -0.09888>+frontleg0_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSetLinkPrimitiveParamsFast(frontleg1,[PRIM_POS_LOCAL,<-0.15558, 0.04279, -0.09888>+frontleg1_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSetLinkPrimitiveParamsFast(backleg0,[PRIM_POS_LOCAL,<0.15369, -0.05450, -0.09888>+backleg0_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSetLinkPrimitiveParamsFast(backleg1,[PRIM_POS_LOCAL,<0.15369, 0.04279, -0.09888>+backleg1_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSleep(0.2);
+        llSetLinkPrimitiveParamsFast(frontleg0,[PRIM_POS_LOCAL,<-0.02505, -0.05450, -0.04480>+frontleg0_position,PRIM_ROT_LOCAL,<0.00000, 0.92388, 0.00000, 0.38268>]);
+        llSetLinkPrimitiveParamsFast(frontleg1,[PRIM_POS_LOCAL,<-0.32610, 0.04279, 0.01501>+frontleg1_position,PRIM_ROT_LOCAL,<-0.00000, -0.83147, -0.00000, 0.55557>]);
+        llSetLinkPrimitiveParamsFast(backleg0,[PRIM_POS_LOCAL,<0.02319, -0.05450, -0.04480>+backleg0_position,PRIM_ROT_LOCAL,<-0.00000, -0.92388, -0.00000, 0.38268>]);
+        llSetLinkPrimitiveParamsFast(backleg1,[PRIM_POS_LOCAL,<0.32421, 0.04279, 0.01501>+backleg1_position,PRIM_ROT_LOCAL,<0.00000, 0.83147, 0.00000, 0.55557>]);
+        llSleep(0.2);
+        llSetLinkPrimitiveParamsFast(frontleg0,[PRIM_POS_LOCAL,<-0.15556, -0.05450, -0.09888>+frontleg0_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSetLinkPrimitiveParamsFast(frontleg1,[PRIM_POS_LOCAL,<-0.15558, 0.04279, -0.09888>+frontleg1_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSetLinkPrimitiveParamsFast(backleg0,[PRIM_POS_LOCAL,<0.15369, -0.05450, -0.09888>+backleg0_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        llSetLinkPrimitiveParamsFast(backleg1,[PRIM_POS_LOCAL,<0.15369, 0.04279, -0.09888>+backleg1_position,PRIM_ROT_LOCAL,<0.00000, -1.00000, 0.00000, 0.00000>]);
+        }
+    }
+}
+

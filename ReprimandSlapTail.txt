@@ -1,0 +1,27 @@
+default
+{
+    state_entry()
+    {
+    }
+    
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    touch_start(integer total_number)
+    {
+        llTriggerSound( "8dc780c2-4bbe-40f2-e552-cc8ff3376aca", 1.0 );
+        llSleep(0.2);
+        llSay(5149, "schlap");
+        
+        key idx = llDetectedKey(0);
+        string origName = llGetObjectName();
+        string avName;
+        avName = llGetDisplayName(idx);
+        llSetObjectName( " " );
+        llSay(0, avName + " reprimands the wobbledog.");
+        llSetObjectName( origName );
+        llSleep(1.0);
+    }
+}
